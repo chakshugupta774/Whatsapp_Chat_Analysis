@@ -31,9 +31,11 @@ def fetch_stats(selected_user,df):
 def most_busy_user(df):
     df = df[df['User'] != 'group notification']
     x = df['User'].value_counts().head()
-    df = round((df['User'].value_counts() / df.shape[0]) * 100, 2).reset_index().rename(
-        columns={'index': 'name', 'User': 'percent'})
-    return x,df
+    # df = round((df['User'].value_counts() / df.shape[0]) * 100, 2).reset_index().rename(
+    #     columns={'index': 'name', 'User': 'percent'})
+    df1 = df[df['Message'] == '<Media omitted>\n'].groupby('User').count().sort_values(by="Message", ascending = False).head(10)
+    df1 = df1.drop(columns=['Dates','date_only','year','month_name','month','day	hour','minute','day_name','period'],errors='ignore').reset_index()
+    return x,df1
 
 def create_wordcloud(selected_user,df):
     if selected_user != 'All':
@@ -78,7 +80,16 @@ def emoji_helper(selected_user, df):
     for message in df['Message']:
         emojis.extend([c for c in message if c in emoji.EMOJI_DATA])
 
-    emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
+    # emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
+    emoji_counts = Counter(emojis) 
+    
+    # Create a DataFrame with emoji, count, and description
+    emoji_df = pd.DataFrame(
+        [(em, count, emoji.demojize(em).replace(":", "").replace("_", " ")) for em, count in emoji_counts.items()],
+        columns=['Emoji', 'Count', 'Description']
+    )
+    emoji_df = emoji_df.sort_values(by="Count", ascending=False).reset_index(drop=True)
+
     return emoji_df
 
 def monthly_timeline(selected_user, df):
@@ -119,3 +130,13 @@ def activity_heatmap(selected_user,df):
     user_heatmap = df.pivot_table(index='day_name', columns='period', values='Message', aggfunc='count').fillna(0)
 
     return user_heatmap
+
+def most_active_days(selected_user,df):
+    if selected_user != 'All':
+        df = df[df['User'] == selected_user]
+
+    df['Message_count'] = [1] * df.shape[0]       
+    active_day_df =df.drop(columns=['year','Dates','User','Message','month_name','month','day','hour','minute','day_name','period'])          
+    active_day_df = active_day_df.groupby('date_only').sum().sort_values(by='Message_count',ascending=False).head(10).reset_index()
+
+    return active_day_df

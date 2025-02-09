@@ -2,6 +2,10 @@
 ..
 ...
 ?
+#
+=
+!
+$
 -
 --
 1
@@ -281,8 +285,10 @@ got
 gotten
 greetings
 guys
+gya
 haan
 had
+hn
 hadd
 hadn
 hadnt
@@ -449,6 +455,7 @@ just
 jyaada
 jyada
 k
+ki
 ka
 kaafi
 kab
@@ -602,6 +609,7 @@ mera
 mere
 merely
 meri
+meko
 might
 mightn
 mightnt
