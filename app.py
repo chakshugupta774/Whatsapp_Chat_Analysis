@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import  seaborn as sns
 import numpy as np
 
+st.set_page_config(layout="wide")
+
 # Title
 st.sidebar.title('Whatsapp Chat Analyzer')
 
