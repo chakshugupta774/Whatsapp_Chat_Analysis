@@ -16,7 +16,7 @@ To analyze a chat, first, you need to export it from WhatsApp:
 6. Save the `.txt` file or send it to yourself via email.  
 
 ### Step 2: Upload the Chat File  
-1. Open the **https://wca-chakshu.streamlit.app**.  
+1. Open the **bit.ly/4gDS81q**.  
 2. Click on the **Upload** button.  
 3. Select the exported `.txt` chat file from your device.  
 4. Click **Analyze** to generate insights.  
