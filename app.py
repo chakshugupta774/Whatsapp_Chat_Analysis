@@ -2,7 +2,7 @@ import streamlit as st
 import preprocessor
 import helper
 import matplotlib.pyplot as plt
-import  seaborn as sns
+import seaborn as sns
 import numpy as np
 
 st.set_page_config(layout="wide")
